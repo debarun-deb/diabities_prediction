@@ -48,7 +48,7 @@ def train_model(X_train, y_train):
         'colsample_bytree': uniform(0.5, 0.5)
     }
 
-    xgb_model = XGBClassifier(random_state=42, verbosity=0, eval_metric='logloss')
+    xgb_model = XGBClassifier(random_state=42, eval_metric='logloss')
     
     # Perform Randomized Search
     random_search = RandomizedSearchCV(estimator=xgb_model, param_distributions=param_dist, n_iter=100, scoring='accuracy', cv=5, verbose=1, random_state=42, n_jobs=-1)
@@ -70,7 +70,7 @@ def train_model(X_train, y_train):
     grid_search = GridSearchCV(estimator=xgb_model, param_grid=param_grid, scoring='accuracy', cv=5, verbose=1, n_jobs=-1)
     grid_search.fit(X_train, y_train)
 
-    return grid_search.best_estimator(), grid_search.best_params_
+    return grid_search.best_estimator_, grid_search.best_params_
 
 # Function to evaluate the model
 def evaluate_model(model, X_train, X_test, y_train, y_test):
