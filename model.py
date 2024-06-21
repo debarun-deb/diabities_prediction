@@ -48,7 +48,7 @@ def train_model(X_train, y_train):
         'colsample_bytree': uniform(0.5, 0.5)
     }
 
-    xgb_model = XGBClassifier(random_state=42, use_label_encoder=False, eval_metric='logloss')
+    xgb_model = XGBClassifier(random_state=42, verbosity=0, eval_metric='logloss')
     
     # Perform Randomized Search
     random_search = RandomizedSearchCV(estimator=xgb_model, param_distributions=param_dist, n_iter=100, scoring='accuracy', cv=5, verbose=1, random_state=42, n_jobs=-1)
